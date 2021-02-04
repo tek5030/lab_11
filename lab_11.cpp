@@ -12,17 +12,17 @@
 /// \param[in] update_ratio The ratio of samples to replace on average.
 void updateSamples(cv::Mat& old_samples, const cv::Mat& new_samples, float update_ratio);
 
-/// \brief Extracts pixel features from an image.
-/// \param[in] input_image Assumed to be of type CV_8U.
-/// \return An image where each pixel is the feature vector for the corresponding pixel in the input.
-cv::Mat extractFeatures(const cv::Mat& frame);
-
 /// \brief Returns a binary image (values 0 or 255) which is the result of segmenting the input.
 /// \param[in] input_image Assumed to be of type CV_8U.
 /// \param[in/out] threshold_value Assumed to be a number between 0 and 255. Is updated when Otsu's is used.
 /// \param[in] use_otsu Option whether to use Otsu's method or not
 /// \return The segmented image
 cv::Mat performSegmentation(const cv::Mat& input_image, int& threshold_value, bool use_otsu);
+
+/// \brief Extracts pixel features from an image.
+/// \param[in] input_image Assumed to be of type CV_8U.
+/// \return An image where each pixel is the feature vector for the corresponding pixel in the input.
+cv::Mat extractFeatures(const cv::Mat& frame);
 
 /// \brief Creates a cv::Rect with size and position scaled relative to some input img_size
 /// \param[in] img_size The size of the image you want to sample from
@@ -139,22 +139,14 @@ void lab11()
 
 void updateSamples(cv::Mat& old_samples, const cv::Mat& new_samples, float update_ratio)
 {
-  // TODO 4: Implement a random update of samples given the ratio of new_samples
+  // TODO 3: Implement a random update of samples given the ratio of new_samples
   old_samples = new_samples; // Dummy, replace
-}
-
-
-cv::Mat extractFeatures(const cv::Mat& frame)
-{
-  // TODO 5: Extract other/more features for each pixel.
-  cv::Mat feature_image = frame.clone();
-  return feature_image;
 }
 
 
 cv::Mat performSegmentation(const cv::Mat& input_image, int& threshold_value, bool use_otsu)
 {
-  // TODO 6: Add morphological operations to reduce noise, and other fancy segmentation approaches.
+  // TODO 4: Add morphological operations to reduce noise, and other fancy segmentation approaches.
   int thresh_type = cv::THRESH_BINARY_INV;
   if (use_otsu)
   { thresh_type |= cv::THRESH_OTSU; }
@@ -163,6 +155,14 @@ cv::Mat performSegmentation(const cv::Mat& input_image, int& threshold_value, bo
   threshold_value = static_cast<int>(cv::threshold(input_image, segmented_image, threshold_value, 255, thresh_type));
 
   return segmented_image;
+}
+
+
+cv::Mat extractFeatures(const cv::Mat& frame)
+{
+  // TODO 5: Extract other/more features for each pixel.
+  cv::Mat feature_image = frame.clone();
+  return feature_image;
 }
 
 
@@ -178,7 +178,7 @@ cv::Rect getSamplingRectangle(const cv::Size& img_size)
   const cv::Rect sampling_rectangle(top_left_x, top_left_y, width, height);
   const cv::Rect entire_image(0,0,img_size.width,img_size.height);
 
-  // This operation ensures that the boundardies of the returned sampling rectange is within the image's dimentions,
+  // This operation ensures that the boundaries of the returned sampling rectangel are within the image dimensions,
   // just in case the chosen width or height is to large.
   return (sampling_rectangle & entire_image );
 }

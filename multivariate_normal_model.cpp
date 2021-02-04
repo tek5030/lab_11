@@ -10,7 +10,7 @@ MultivariateNormalModel::MultivariateNormalModel(const cv::Mat& samples)
 
 void MultivariateNormalModel::performTraining(const cv::Mat& samples)
 {
-  // TODO 1.1: Train a multivariate normal model by estimating the mean and covariance given the samples.
+  // TODO 1.1: Train the multivariate normal model by estimating the mean and covariance given the samples.
   mean_ = cv::Mat::ones(3, 1, CV_64F) * 127.;  // Dummy, replace
   covariance_ = cv::Mat::eye(3, 3, CV_64F);    // Dummy, replace
 
