@@ -43,7 +43,7 @@ Take a look at [cv::Mahalanobis](https://docs.opencv.org/4.0.1/d2/de8/group__cor
 
 
 ## 3. Implement the method `update`  in `MultivariateNormalModel`
-This method should update the multivariate normal model by replacing a fraction of the existing `samples_` with some 
+This method should update the multivariate normal model by replacing a fraction of the existing `old_samples_` with some 
 `new_samples` and then retrain the model.
 
 This should make the model gradually change over time and we should be able to control the rate of which it changes by 
