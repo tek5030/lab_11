@@ -12,10 +12,10 @@ Then open the lab project in CLion.
 The lab is carried out by following these steps:
 
 1. [Get an overview](lab-guide/1-get-an-overview.md)
-2. [Finish MultivariateNormalModel](lab-guide/2-finish-multivariate-normal-model.md)
+2. [Implement simple color-based segmentation](lab-guide/2-implement-simple-color-based-segmentation.md)
 4. [Further work](lab-guide/3-further-work.md)
 
-At an appropriate time, our [proposed solution](https://github.uio.no/tek5030/lab_11_solution) will be made available.
+At an appropriate time, our [proposed solution](https://github.com/tek5030/lab_11_solution) will be made available.
 
 Please start the lab by going to the [first step](lab-guide/1-get-an-overview.md).
 
