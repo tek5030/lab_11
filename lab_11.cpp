@@ -44,6 +44,7 @@ void drawSamplingRectangle(cv::Mat& image, const cv::Rect& sampling_rectangle);
 
 void lab11()
 {
+  // Change to video file if you want to use that instead.
   constexpr int device_id = 0;
   cv::VideoCapture cap{device_id};
 
@@ -51,30 +52,35 @@ void lab11()
   {
     throw std::runtime_error("Could not open camera " + std::to_string(device_id));
   }
+
+  // Construct sampling region based on image dimensions.
   cv::Mat frame;
   cap >> frame;
   cv::Rect sampling_rectangle = getSamplingRectangle(frame.size());
 
-  const std::string win_name_input{"Lab 11: Segmentation - Input"};
-  cv::namedWindow(win_name_input, cv::WINDOW_NORMAL);
-
-  const std::string win_name_result{"Lab 11: Segmentation - Mahalanobis distance"};
-  cv::namedWindow(win_name_result, cv::WINDOW_NORMAL);
-
+  // Set up parameters.
   const int max_threshold{255};
   int current_threshold{30};
   bool use_otsu{false};
   bool use_adaptive_model{false};
   float adaptive_update_ratio{0.1f};
 
+  // Create windows.
+  const std::string win_name_input{"Lab 11: Segmentation - Input"};
+  cv::namedWindow(win_name_input, cv::WINDOW_NORMAL);
+  const std::string win_name_result{"Lab 11: Segmentation - Mahalanobis distance"};
+  cv::namedWindow(win_name_result, cv::WINDOW_NORMAL);
+
+  // Add a trackbar for setting the threshold.
   const std::string threshold_trackbar_name{"Threshold"};
   cv::createTrackbar(threshold_trackbar_name, win_name_input, &current_threshold, max_threshold);
 
+  // The main loop in the program.
   std::shared_ptr<MultivariateNormalModel> model;
   cv::Mat current_samples;
-
   while (true)
   {
+    // Read an image frame.
     cap >> frame;
     if (frame.empty())
     {
