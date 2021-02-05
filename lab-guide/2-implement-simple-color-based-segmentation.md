@@ -23,10 +23,11 @@ The method `MultivariateNormalModel::performTraining` should estimate the mean `
 It must also compute the inverse of the covariance matrix `inverse_covariance`, which we later will use to compute the Mahalanobis distance.
 
 Take a look at [cv::calcCovarMatrix](https://docs.opencv.org/4.0.1/d2/de8/group__core__array.html#ga017122d912af19d7d0d2cccc2d63819f).
-We want `mean_` to be a column vector. The [cv::CovarFlags](https://docs.opencv.org/4.0.1/d0/de1/group__core.html#ga719ebd4a73f30f4fab258ab7616d0f0f) in `cv::calcCovarMatrix()` can be combined like this: `flag1|flag2`.
+We want `mean_` to be a row vector (to avoid having to transpose the matrix of samples). 
+The [cv::CovarFlags](https://docs.opencv.org/4.0.1/d0/de1/group__core.html#ga719ebd4a73f30f4fab258ab7616d0f0f) in `cv::calcCovarMatrix()` can be combined like this: `flag1|flag2`.
 See also [cv::invert](https://docs.opencv.org/4.0.1/d2/de8/group__core__array.html#gad278044679d4ecf20f7622cc151aaaa2).
 
-In its current state, the method simply computes **`mean_` = [127; 127; 127]**, **`covariance_` = Identity** and **`inverse_covariance_` = Identity**.
+In its current state, the method simply computes **`mean_` = [127, 127, 127]**, **`covariance_` = Identity** and **`inverse_covariance_` = Identity**.
 You should replace this with the correct computations.
  
 ## 2. Implement the method `computeMahalanobisDistances` in `MultivariateNormalModel`
