@@ -22,12 +22,12 @@ well the vector fits with the distribution.
 The method `MultivariateNormalModel::performTraining` should estimate the mean `mean_` and the covariance `covariance_` for the model based on the training samples `samples_` collected from the sampling region.
 It must also compute the inverse of the covariance matrix `inverse_covariance`, which we later will use to compute the Mahalanobis distance.
 
-Take a look at [cv::calcCovarMatrix](https://docs.opencv.org/4.0.1/d2/de8/group__core__array.html#ga017122d912af19d7d0d2cccc2d63819f).
-We want `mean_` to be a row vector (to avoid having to transpose the matrix of samples). 
+Take a look at [cv::calcCovarMatrix](https://docs.opencv.org/4.0.1/d2/de8/group__core__array.html#ga017122d912af19d7d0d2cccc2d63819f)
+and keep in mind that we want `mean_` to be a column vector.
 The [cv::CovarFlags](https://docs.opencv.org/4.0.1/d0/de1/group__core.html#ga719ebd4a73f30f4fab258ab7616d0f0f) in `cv::calcCovarMatrix()` can be combined like this: `flag1|flag2`.
 See also [cv::invert](https://docs.opencv.org/4.0.1/d2/de8/group__core__array.html#gad278044679d4ecf20f7622cc151aaaa2).
 
-In its current state, the method simply computes **`mean_` = [127, 127, 127]**, **`covariance_` = Identity** and **`inverse_covariance_` = Identity**.
+In its current state, the method simply returns **`mean_` = [127; 127; 127]**, **`covariance_` = Identity** and **`inverse_covariance_` = Identity**.
 You should replace this with the correct computations.
  
 ## 2. Implement the method `computeMahalanobisDistances` in `MultivariateNormalModel`
@@ -54,8 +54,8 @@ dramatically from one image to the next.
 We will instead implement a solution that makes the model behave more smoothly.
 This is achieved by continously retraining the model based on a mixture of old and new feature vectors.
 
-The method 'updateSamples' is supposed to update 'current_samples' by replacing a random subset of its feature vectors 
-(columns) with feature vectors (columns) from 'new_samples'. 
+The method `updateSamples` is supposed to update `current_samples` by replacing a random subset of its feature vectors 
+(columns) with feature vectors (columns) from `new_samples`. 
 In its current state, this method does not perform any update at all.
 Your job is to implement it so that it works as intended.
 
