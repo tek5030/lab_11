@@ -7,10 +7,10 @@
 // ------ Declarations for utility functions ------
 
 /// \brief Replace a ratio of current_samples with new_samples
-/// \param[in] current_samples Samples used in the current model.
+/// \param[in] old_samples Samples used in the current model.
 /// \param[in] new_samples New samples.
 /// \param[in] update_ratio The ratio of samples to replace on average.
-void updateSamples(cv::Mat& current_samples, const cv::Mat& new_samples, float update_ratio);
+void updateSamples(cv::Mat& old_samples, const cv::Mat& new_samples, float update_ratio);
 
 /// \brief Returns a binary image (values 0 or 255) which is the result of segmenting the input.
 /// \param[in] input_image Assumed to be of type CV_8U.
@@ -143,10 +143,10 @@ void lab11()
 }
 
 
-void updateSamples(cv::Mat& current_samples, const cv::Mat& new_samples, float update_ratio)
+void updateSamples(cv::Mat& old_samples, const cv::Mat& new_samples, float update_ratio)
 {
   // TODO 3: Implement a random update of samples given the ratio of new_samples
-  current_samples = new_samples; // Dummy, replace
+    old_samples = new_samples; // Dummy, replace
 }
 
 
