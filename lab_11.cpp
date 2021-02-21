@@ -6,7 +6,7 @@
 
 // ------ Declarations for utility functions ------
 
-/// \brief Replace a ratio of old_samples with new_samples
+/// \brief Replace a ratio of current_samples with new_samples
 /// \param[in] old_samples Samples used in the current model.
 /// \param[in] new_samples New samples.
 /// \param[in] update_ratio The ratio of samples to replace on average.
@@ -33,7 +33,7 @@ cv::Rect getSamplingRectangle(const cv::Size& img_size);
 /// \param[in] source_image
 /// \param[in] sampling_rectangle
 /// \return A cv::Mat with sample vectors as columns.
-/// For a m x n sampling rectangle of a 3-channel image, this returns a cv::Mat with 3 rows, m*n columns and 1 channel.
+/// For a m x n sampling rectangle of a k-channel image, this returns a cv::Mat with k rows, m*n columns and 1 channel.
 cv::Mat extractTrainingSamples(const cv::Mat& source_image, const cv::Rect& sampling_rectangle);
 
 /// \brief Draw a rectangle on an image
@@ -146,7 +146,7 @@ void lab11()
 void updateSamples(cv::Mat& old_samples, const cv::Mat& new_samples, float update_ratio)
 {
   // TODO 3: Implement a random update of samples given the ratio of new_samples
-  old_samples = new_samples; // Dummy, replace
+    old_samples = new_samples; // Dummy, replace
 }
 
 
@@ -184,8 +184,8 @@ cv::Rect getSamplingRectangle(const cv::Size& img_size)
   const cv::Rect sampling_rectangle(top_left_x, top_left_y, width, height);
   const cv::Rect entire_image(0,0,img_size.width,img_size.height);
 
-  // This operation ensures that the boundaries of the returned sampling rectangel are within the image dimensions,
-  // just in case the chosen width or height is to large.
+  // This operation ensures that the boundaries of the returned sampling rectangle are within the image dimensions,
+  // just in case the chosen width or height is too large.
   return (sampling_rectangle & entire_image );
 }
 
